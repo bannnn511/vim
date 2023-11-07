@@ -18,24 +18,27 @@ local sources = {
   -- go
   b.formatting.gofumpt,
   b.formatting.goimports,
-  b.diagnostics.golangci_lint,
+  b.diagnostics.golangci_lint.with {
+    filetypes = { "go" },
+    command = "golangci-lint",
+    args = { "run", "--out-format", "json" },
+  },
 }
-
 
 null_ls.setup {
   debug = true,
   sources = sources,
-  on_attach =  function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({
+  on_attach = function(client, bufnr)
+    if client.supports_method "textDocument/formatting" then
+      vim.api.nvim_clear_autocmds {
         group = augroup,
         buffer = bufnr,
-      })
+      }
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroup,
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr })
+          vim.lsp.buf.format { bufnr = bufnr }
         end,
       })
     end

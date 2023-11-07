@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd" }
+local servers = { "html", "cssls", "tsserver" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -37,7 +37,7 @@ lspconfig.gopls.setup {
 lspconfig.bufls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = { "bufls", "server" },
+  cmd = { "bufls", "serve" },
   filetypes = { "proto" },
   root_dir = util.root_pattern("buf.work.yaml", ".git"),
 }
