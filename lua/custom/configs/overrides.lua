@@ -25,6 +25,9 @@ M.treesitter = {
 
 M.mason = {
   ensure_installed = {
+    -- rust
+    "rust-analyzer",
+
     -- go
     "gopls",
 
